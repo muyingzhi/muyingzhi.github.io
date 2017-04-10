@@ -100,6 +100,10 @@
 	
 	var _clinic2 = _interopRequireDefault(_clinic);
 	
+	var _index = __webpack_require__("F++D");
+	
+	var _index2 = _interopRequireDefault(_index);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	__webpack_require__("XBRq");
@@ -119,7 +123,8 @@
 					_react2.default.createElement(_reactRouter.IndexRoute, { component: _first2.default }),
 					_react2.default.createElement(_reactRouter.Route, { path: "/main", component: _mainBody2.default }),
 					_react2.default.createElement(_reactRouter.Route, { path: "/first", component: _first2.default }),
-					_react2.default.createElement(_reactRouter.Route, { path: "/clinic", component: _clinic2.default })
+					_react2.default.createElement(_reactRouter.Route, { path: "/clinic", component: _clinic2.default }),
+					_react2.default.createElement(_reactRouter.Route, { path: "/d3", component: _index2.default })
 			),
 			_react2.default.createElement(_reactRouter.Route, { path: "/bazi", component: _bz2.default })
 	), document.getElementById('main'));
@@ -26595,6 +26600,40 @@
 
 /***/ },
 
+/***/ "Be6R":
+/***/ function(module, exports, __webpack_require__) {
+
+	var shared = __webpack_require__("ePQ2")('keys')
+	  , uid    = __webpack_require__("nFcd");
+	module.exports = function(key){
+	  return shared[key] || (shared[key] = uid(key));
+	};
+
+/***/ },
+
+/***/ "ePQ2":
+/***/ function(module, exports, __webpack_require__) {
+
+	var global = __webpack_require__("VEHb")
+	  , SHARED = '__core-js_shared__'
+	  , store  = global[SHARED] || (global[SHARED] = {});
+	module.exports = function(key){
+	  return store[key] || (store[key] = {});
+	};
+
+/***/ },
+
+/***/ "nFcd":
+/***/ function(module, exports) {
+
+	var id = 0
+	  , px = Math.random();
+	module.exports = function(key){
+	  return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
+	};
+
+/***/ },
+
 /***/ "OrC9":
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
@@ -26709,39 +26748,6 @@
 	};
 	
 	module.exports = PooledClass;
-
-/***/ },
-
-/***/ "ePQ2":
-/***/ function(module, exports, __webpack_require__) {
-
-	var global = __webpack_require__("VEHb")
-	  , SHARED = '__core-js_shared__'
-	  , store  = global[SHARED] || (global[SHARED] = {});
-	module.exports = function(key){
-	  return store[key] || (store[key] = {});
-	};
-
-/***/ },
-
-/***/ "nFcd":
-/***/ function(module, exports) {
-
-	var id = 0
-	  , px = Math.random();
-	module.exports = function(key){
-	  return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
-	};
-
-/***/ },
-
-/***/ "rARo":
-/***/ function(module, exports) {
-
-	// IE 8- don't enum bug keys
-	module.exports = (
-	  'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'
-	).split(',');
 
 /***/ },
 
@@ -45617,6 +45623,15 @@
 	          { bsStyle: 'primary', bsSize: 'large', block: true },
 	          'CLINIC'
 	        )
+	      ),
+	      _react2.default.createElement(
+	        _reactRouter.Link,
+	        { to: 'd3' },
+	        _react2.default.createElement(
+	          _reactBootstrap.Button,
+	          { bsStyle: 'primary', bsSize: 'large', block: true },
+	          'D3'
+	        )
 	      )
 	    );
 	    return _react2.default.createElement(
@@ -48033,6 +48048,517 @@
 
 /***/ },
 
+/***/ "F++D":
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	var _react = __webpack_require__("I/Mq");
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	// import Processing from "processing";
+	var d3 = __webpack_require__(1);
+	var D3path = __webpack_require__("WA1U");
+	var D3BindData = __webpack_require__("4qFq");
+	var D3Needle = __webpack_require__("5h4h");
+	var D3Rotate = __webpack_require__("hdlZ");
+	var d3test = _react2.default.createClass({
+		displayName: "d3test",
+	
+		getInitialState: function getInitialState() {
+			return {
+				points: [{ x: 10, y: 10 }, { x: 110, y: 20 }, { x: 780, y: 130 }, { x: 203, y: 450 }, { x: 345, y: 90 }],
+				a1: 50
+			};
+		},
+		componentDidMount: function componentDidMount() {
+			function sketchProc(processing) {
+				processing.draw = function () {};
+			}
+			var canvas = this.refs.canvas;
+			//var processingInstance = new Processing(canvas, sketchProc);
+		},
+		changeA1: function changeA1() {
+			var a1 = this.refs.a1.value;
+			console.log("changeA1", a1);
+			if (parseInt(a1) != NaN) {
+				this.setState({ a1: parseInt(a1) });
+			}
+		},
+		render: function render() {
+			var deNeedle = null;
+			var data1 = [4, 7, 8, 13, 0, 2, 4, 3, 5, 9, 3, 10];
+			var data2 = [4, 8, 9, 10, 1, 2, 1, 4, 2, 8, 4, 34];
+			console.log("render a1:", this.state.a1);
+	
+			return _react2.default.createElement(
+				"div",
+				null,
+				_react2.default.createElement("canvas", { ref: "canvas" }),
+				_react2.default.createElement(
+					"div",
+					{ style: { height: 300 } },
+					_react2.default.createElement(D3BindData, { leftData: data1, rightData: data2 })
+				),
+				_react2.default.createElement(
+					"div",
+					null,
+					"\u8F93\u51650-100\u7684\u6570\u5B57\uFF1A",
+					_react2.default.createElement("input", { ref: "a1", onChange: this.changeA1 }),
+					_react2.default.createElement(D3Needle, { value: this.state.a1 }),
+					_react2.default.createElement(D3Rotate, null)
+				),
+				_react2.default.createElement(D3path, { points: this.state.points })
+			);
+		},
+		createPoint: function createPoint() {
+			var xr = parseInt(900 * Math.random());
+			var yr = parseInt(600 * Math.random());
+			return {
+				x: xr,
+				y: yr
+			};
+		},
+		drawLine: function drawLine(path) {
+			var p1 = this.createPoint(),
+			    p2 = this.createPoint();
+			var ptop = { x: (p1.x + p2.x) / 2, y: 50 };
+			path.attr("d", "M " + p1.x + " " + p1.y + " Q " + ptop.x + " " + ptop.y + " " + p2.x + " " + p2.y);
+			path.attr("fill", "none");
+			path.attr("stroke", "blue").attr("stroke-width", 5);
+			return path;
+		}
+	});
+	module.exports = d3test;
+
+/***/ },
+
+/***/ 1:
+/***/ function(module, exports) {
+
+	module.exports = d3;
+
+/***/ },
+
+/***/ "WA1U":
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	var _react = __webpack_require__("I/Mq");
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var d3 = __webpack_require__(1);
+	
+	var D3Path = _react2.default.createClass({
+		displayName: "D3Path",
+	
+		propTypes: {
+			points: _react2.default.PropTypes.array.isRequired
+		},
+		drawB: function drawB(a0) {
+			console.log(a0);
+			var lineData = [{ "x": 1, "y": 5 }, { "x": 80, "y": 20 }, { "x": 100, "y": 10 }, { "x": 160, "y": 40 }, { "x": 350, "y": 5 }, { "x": 400, "y": 100 }];
+			var lineData2 = [{ "x": 100, "y": 50 }, { "x": 180, "y": 120 }, { "x": 190, "y": 100 }, { "x": 260, "y": 140 }, { "x": 150, "y": 105 }, { "x": 400, "y": 100 }];
+	
+			//线生成器
+			var lineFunction1 = d3.line().x(function (d) {
+				return d.x;
+			}).y(function (d) {
+				return Math.sin(d.x / 160 * 2 * Math.PI) * 100 + 100;
+			}).curve(d3.curveCatmullRom.alpha(0.5));
+			var lineFunction2 = d3.line().x(function (d) {
+				return d.x;
+			}).y(function (d) {
+				return d.y;
+			}).curve(d3.curveBundle.beta(0.85));
+			var lineFunction3 = d3.line().x(function (d) {
+				return d.x;
+			}).y(function (d) {
+				return d.y;
+			});
+			//.curve(d3.curveBasisClosed.bate(0.5));
+	
+			//svg容器
+			var svgContainer = d3.select(this.refs.svg);
+	
+			//把path扔到容器中，并给d赋属性
+			var lineGraph1 = svgContainer.append("path").attr("d", lineFunction1(lineData)).attr("stroke", "red").attr("stroke-width", 2).attr("fill", "none");
+			var lineGraph2 = svgContainer.append("path").attr("d", lineFunction2(lineData)).attr("stroke", "green").attr("stroke-width", 2).attr("fill", "none");
+			var lineGraph3 = svgContainer.append("path").attr("d", lineFunction3(lineData)).attr("stroke", "yellow").attr("stroke-width", 2).attr("fill", "none");
+			svgContainer.selectAll("circle").data(lineData).enter().append("circle").transition().duration(1500).attr("cx", function (data) {
+				return data.x;
+			}).attr("cy", function (data) {
+				return data.y;
+			}).attr("r", 5).attr("fill", "white").attr("stroke", "green").attr("stroke-width", 2);
+	
+			svgContainer.selectAll("circle").data(lineData2).enter().append("circle").transition().duration(1500).attr("cx", function (data) {
+				return data.x;
+			}).attr("cy", function (data) {
+				return data.y;
+			}).attr("r", 5).attr("fill", "white").attr("stroke", "green").attr("stroke-width", 2);
+			svgContainer.select("circle").transition().duration(2000).attrTween("cy", function () {
+				//return d3.interpolate(0,400);
+				return function (t) {
+					return 100 - Math.sin(t * 2 * Math.PI * 2) * 100;
+				};
+			}).attrTween("cx", function () {
+				var endx = 400;
+				return function (t) {
+					return t * endx;
+				};
+			});
+		},
+		render: function render() {
+	
+			var path = d3.path();
+			// this.props.points.map(function(one,index){
+			// 	if(index==0){
+			// 		path.moveTo(one.x, one.y);
+			// 	}else{
+			// 		path.lineTo(one.x, one.y);
+			// 	}
+			// });
+			path.moveTo(0, 0);
+			path.bezierCurveTo(0, 0, 0, 200, 400, 200);
+			path.bezierCurveTo(100, 200, 400, 200, 400, 100);
+			path.closePath();
+			return _react2.default.createElement(
+				"svg",
+				{ ref: "svg", width: 400, height: 200, style: { "background": "black" }, onClick: this.drawB },
+				_react2.default.createElement("path", { d: path.toString(), fill: "none", stroke: "blue", strokeWidth: "2" }),
+				_react2.default.createElement("circle", { cx: "0", cy: "0", r: "10", fill: "white", stroke: "green", "stroke-width": "2" })
+			);
+		}
+	});
+	
+	module.exports = D3Path;
+
+/***/ },
+
+/***/ "4qFq":
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	var _react = __webpack_require__("I/Mq");
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var d3 = __webpack_require__(1);
+	var BindData = _react2.default.createClass({
+		displayName: "BindData",
+	
+		render: function render() {
+			var data1 = this.props.leftData;
+			var data2 = this.props.rightData;
+			var t1 = d3.max(data1),
+			    t2 = d3.max(data2);
+			var tt = d3.max([t1, t2]);
+			return _react2.default.createElement(
+				"div",
+				null,
+				_react2.default.createElement(
+					HalfBindData,
+					{ float: "right", datas: data1, domainValue: tt, background: "red" },
+					_react2.default.createElement(
+						"div",
+						null,
+						"o"
+					),
+					_react2.default.createElement(
+						"div",
+						null,
+						"ok"
+					)
+				),
+				_react2.default.createElement("div", { style: { float: "left", width: "10px", height: "100px", background: "white" } }),
+				_react2.default.createElement(
+					HalfBindData,
+					{ float: "left", datas: data2, domainValue: tt, background: "green" },
+					_react2.default.createElement(
+						"div",
+						null,
+						"o"
+					),
+					_react2.default.createElement(
+						"div",
+						null,
+						"ok"
+					)
+				)
+			);
+		}
+	});
+	var HalfBindData = _react2.default.createClass({
+		displayName: "HalfBindData",
+	
+		componentDidMount: function componentDidMount() {
+			var width = 300;
+			var data = this.props.datas;
+			var x = d3.scaleLinear().domain([0, this.props.domainValue]).range([0, width]);
+			var marginType = "margin-left";
+			if (this.props.float == "left") {
+				marginType = "margin-right";
+			}
+			var d = d3.select(this.refs.bindData).selectAll("div").data(data).enter().append("div")
+			// .style("width",function(d){ return x(d) + "px";})
+			// .style(marginType,function(d){ console.log(width - x(d));return (width - x(d)) + "px";})
+			.style("background", this.props.background).style("color", "white").style("margin", "1px").style("float", this.props.float).style("display", "inline-block").style("text-align", this.props.float).text(function (d) {
+				return d;
+			});
+	
+			d.transition().duration(1000).styleTween("width", function (d, i) {
+				return function (t) {
+					var a = t * x(d);
+					return a + "px";
+				};
+			}).styleTween(marginType, function (d, i) {
+				return function (t) {
+					// console.log("d:"+d+" i:"+i);
+					var a = t * x(d);
+					return width - a + "px";
+				};
+			});
+			//.style("background","rgb(204,204,204)");
+		},
+		render: function render() {
+			return _react2.default.createElement("div", { ref: "bindData", style: { float: "left", width: 300 } });
+		}
+	});
+	
+	module.exports = BindData;
+
+/***/ },
+
+/***/ "5h4h":
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	var _react = __webpack_require__("I/Mq");
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var d3 = __webpack_require__(1);
+	
+	var svg, bgArc, frArc;
+	var Obj = _react2.default.createClass({
+		displayName: "Obj",
+	
+		propTypes: {},
+		draw: function draw(value) {
+			var margin = { top: 20, left: 20, right: 20, bottom: 20 };
+			var width = 400;
+			var height = 300;
+			var svg = d3.select(this.refs.ele).select("svg").attr("width", width).attr("height", height).style("background", "#ccc").select("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+	
+			var datum = value; //50
+	
+			if (datum < 0 || datum > 100) {
+				return;
+			}
+			var bgArc = d3.arc().outerRadius(150).innerRadius(50).startAngle(-70 / 360 * 2 * Math.PI).endAngle(70 / 360 * 2 * Math.PI);
+			var end_angle = getEndAngle(20, 100);
+			var needlePositon = getNeedlePosition(20, 100);
+			var frArc = d3.arc().outerRadius(150).innerRadius(50).startAngle(-70 / 360 * 2 * Math.PI);
+			var wrap = svg.select("g").attr("class", "wrap").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+	
+			wrap.select("#bg").attr("d", bgArc).attr("fill", "green");
+	
+			d3.select("#cir").attr("cx", 0).attr("cy", 0).attr("r", 10).attr("fill", "red");
+			var front = d3.select("#fg").attr("class", "front").attr("d", frArc.endAngle(end_angle)).attr("fill", "yellow");
+			wrap.select(".needle").attr("d", needlePositon).attr("fill", "red");
+			front.datum(datum).transition().duration(1500).attrTween("d", function (d, i) {
+				var end_angle = getEndAngle(d, 100);
+				return function (t) {
+					frArc.endAngle(end_angle * t + getEndAngle(20, 100) * (1 - t));
+					return frArc();
+				};
+			});
+			var transition = d3.select(".needle").datum(datum).transition().duration(1000).attrTween("d", function (d, i) {
+				return function (t) {
+					return getNeedlePosition(t * d + (1 - t) * 20, 100);
+				};
+			});
+			// transition.each(function (d) {
+			//             needlePositon = getNeedlePosition(d, 100);
+			//         });
+			function getNeedlePosition(data, max) {
+				//----画指针，返回指针的路径
+				var angle = data / max * (140 / 360) * 2 * Math.PI + 20 / 360 * 2 * Math.PI;
+				var x_one = -150 * Math.cos(angle);
+				var y_one = -150 * Math.sin(angle);
+				var x_two = -10 * Math.cos(Math.PI / 2 - angle);
+				var y_two = 10 * Math.sin(Math.PI / 2 - angle);
+				var x_three = 10 * Math.cos(Math.PI / 2 - angle);
+				var y_three = -10 * Math.sin(Math.PI / 2 - angle);
+				return "M" + [x_one, y_one].join(" ") + "L" + [x_two, y_two].join(" ") + "L" + [x_three, y_three].join(" ");
+			}
+			function getEndAngle(data, max) {
+				return data / max * 140 / 360 * 2 * Math.PI + -70 / 360 * 2 * Math.PI;
+			}
+		},
+		shouldComponentUpdate: function shouldComponentUpdate(newProps, newStates) {
+			this.draw(newProps.value);
+			return false;
+		},
+		componentDidMount: function componentDidMount() {
+			this.draw(0);
+			// d3.select(this.refs.ele).select("svg").transition()
+			// 	.delay(750)
+			// 	.each(function(){d3.select(this).style("background","rgb(255,255,255)");})
+			// 	.style("background","rgb(204,204,204)");
+		},
+		render: function render() {
+			return _react2.default.createElement(
+				"div",
+				{ ref: "ele" },
+				_react2.default.createElement(
+					"svg",
+					{ width: "400", height: "400", style: { background: "rgb(204, 204, 204)" } },
+					_react2.default.createElement(
+						"g",
+						{ transform: "translate(20,20)" },
+						_react2.default.createElement(
+							"g",
+							{ className: "wrap", transform: "translate(200,200)" },
+							_react2.default.createElement("path", { id: "bg", fill: "green" }),
+							_react2.default.createElement("circle", { id: "cir", cx: "0", cy: "0", r: "10", fill: "white" }),
+							_react2.default.createElement("path", { id: "fg", className: "front", fill: "yellow" }),
+							_react2.default.createElement("path", { className: "needle", d: "M-9.184850993605149e-15 -150L-10 0L10 0", fill: "red" })
+						)
+					)
+				)
+			);
+		}
+	});
+	
+	module.exports = Obj;
+
+/***/ },
+
+/***/ "hdlZ":
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	var _react = __webpack_require__("I/Mq");
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var d3 = __webpack_require__(1);
+	
+	var D3Rotate = _react2.default.createClass({
+		displayName: "D3Rotate",
+	
+		propTypes: {
+			//points:React.PropTypes.array.isRequired
+		},
+		float: function float(container, type) {
+			//if(!container){
+			container = this.refs.svg;
+			// }
+			var width = 400,
+			    height = 300;
+			var svg = d3.select(container).attr("width", width).attr("height", height).style("background", "black");
+			var ss = ["10", "$¥", "✹❀✼"];
+			var total = 0;
+			var len = 0;
+			var fillColor = "green";
+			if (!type) {
+				type = parseInt(Math.random() * (ss.length + 1)) + 1;
+			}
+			if (type == 4) {
+				fillColor = "white";
+			}
+			console.log("type:", type);
+			var ival = d3.interval(function () {
+				len++;
+				for (var i = 0; i < len; i++) {
+					total++;
+					setTimeout(function () {
+						var x = parseInt(Math.random() * parseInt(width / 10)) * 10;
+						var y = parseInt(Math.random() * 10) * 10;
+						var v = "o";
+						switch (type) {
+							case 1:
+								v = String.fromCharCode(Math.random() * 26 + 65);
+								break;
+							default:
+								if (type - 1 <= ss.length) {
+									var str = ss[type - 2];
+									v = str.substr(parseInt(Math.random() * str.length), 1);
+								} else {
+									v = "*";
+								}
+								break;
+						}
+	
+						var t1 = svg.append("text").text(v).attr("fill", fillColor).attr("x", x).attr("y", y);
+						if (parseInt(Math.random() * 10000) > 9500) {
+							t1.attr("fill", "red");
+						}
+						moveText(t1, height);
+	
+						// d3.timeout(function(){
+						// 	t1.remove();
+						// 	total--;
+						// },Math.random()*1000);
+					}, 500 * Math.random());
+				};
+				if (total > 10000) {
+					ival.stop();
+				}
+			});
+		},
+		shouldComponentUpdate: function shouldComponentUpdate(newProps, newStates) {
+			this.float(this.refs.svg);
+			return false;
+		},
+		componentDidMount: function componentDidMount() {
+			this.float(this.refs.svg);
+		},
+		render: function render() {
+			return _react2.default.createElement("svg", { ref: "svg", onClick: this.float });
+		}
+	});
+	function draw(ele) {
+		if (d3.select(ele)) {
+			console.log("draw1ss");
+		}
+	}
+	function moveText(text, height) {
+		text.transition().duration(750).attrTween("dy", function (d, i) {
+			return function (t) {
+				if (t == 1) {
+					//text.attr("dy",0);
+					d3.timeout(function () {
+						text.remove();
+					}, Math.random() * 1000);
+					return height - 50 + Math.random() * 50;
+				} else {
+					return (height - 100) * t;
+				}
+			};
+		});
+	}
+	module.exports = D3Rotate;
+
+/***/ },
+
 /***/ "XBRq":
 /***/ function(module, exports) {
 
@@ -48057,16 +48583,15 @@
 
 /***/ },
 
-/***/ "Be6R":
-/***/ function(module, exports, __webpack_require__) {
+/***/ "rARo":
+/***/ function(module, exports) {
 
-	var shared = __webpack_require__("ePQ2")('keys')
-	  , uid    = __webpack_require__("nFcd");
-	module.exports = function(key){
-	  return shared[key] || (shared[key] = uid(key));
-	};
+	// IE 8- don't enum bug keys
+	module.exports = (
+	  'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'
+	).split(',');
 
 /***/ }
 
 /******/ })));
-//# sourceMappingURL=app.b2fbe3cf5d480c0c8a26.js.map
+//# sourceMappingURL=app.4efec58e8cd085a31bbe.js.map
