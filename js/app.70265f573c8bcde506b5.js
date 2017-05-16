@@ -108,6 +108,10 @@
 	
 	var _BaiduMap2 = _interopRequireDefault(_BaiduMap);
 	
+	var _BabyGrowup = __webpack_require__("F3r6");
+	
+	var _BabyGrowup2 = _interopRequireDefault(_BabyGrowup);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	__webpack_require__("XBRq");
@@ -129,7 +133,8 @@
 					_react2.default.createElement(_reactRouter.Route, { path: "/first", component: _first2.default }),
 					_react2.default.createElement(_reactRouter.Route, { path: "/clinic", component: _clinic2.default }),
 					_react2.default.createElement(_reactRouter.Route, { path: "/d3", component: _index2.default }),
-					_react2.default.createElement(_reactRouter.Route, { path: "/baiduMap/:type", component: _BaiduMap2.default })
+					_react2.default.createElement(_reactRouter.Route, { path: "/baiduMap/:type", component: _BaiduMap2.default }),
+					_react2.default.createElement(_reactRouter.Route, { path: "/babyGrowup/:id", component: _BabyGrowup2.default })
 			),
 			_react2.default.createElement(_reactRouter.Route, { path: "/bazi", component: _bz2.default })
 	), document.getElementById('main'));
@@ -26656,6 +26661,13 @@
 
 /***/ },
 
+/***/ "LRXd":
+/***/ function(module, exports) {
+
+	exports.f = {}.propertyIsEnumerable;
+
+/***/ },
+
 /***/ "OrC9":
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
@@ -26770,17 +26782,6 @@
 	};
 	
 	module.exports = PooledClass;
-
-/***/ },
-
-/***/ "oCxA":
-/***/ function(module, exports, __webpack_require__) {
-
-	// 7.1.13 ToObject(argument)
-	var defined = __webpack_require__("b9Up");
-	module.exports = function(it){
-	  return Object(defined(it));
-	};
 
 /***/ },
 
@@ -45667,6 +45668,15 @@
 	          { bsStyle: 'primary', bsSize: 'large', block: true },
 	          'Note'
 	        )
+	      ),
+	      _react2.default.createElement(
+	        _reactRouter.Link,
+	        { to: 'babyGrowup/01' },
+	        _react2.default.createElement(
+	          _reactBootstrap.Button,
+	          { bsStyle: 'primary', bsSize: 'large', block: true },
+	          'Baby Grow Up'
+	        )
 	      )
 	    );
 	    return _react2.default.createElement(
@@ -48734,7 +48744,11 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement('div', _extends({ id: this.id }, this.props));
+	      return _react2.default.createElement(
+	        'div',
+	        _extends({ id: this.id }, this.props),
+	        'cccc'
+	      );
 	    }
 	  }]);
 	
@@ -48924,6 +48938,218 @@
 
 /***/ },
 
+/***/ "F3r6":
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__("I/Mq");
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _Group4Growup = __webpack_require__("Da/a");
+	
+	var _Group4Growup2 = _interopRequireDefault(_Group4Growup);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var BABYInfo = function (_React$Component) {
+		_inherits(BABYInfo, _React$Component);
+	
+		function BABYInfo() {
+			_classCallCheck(this, BABYInfo);
+	
+			return _possibleConstructorReturn(this, (BABYInfo.__proto__ || Object.getPrototypeOf(BABYInfo)).apply(this, arguments));
+		}
+	
+		_createClass(BABYInfo, [{
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					_Group4Growup2.default,
+					null,
+					' BABY '
+				);
+			}
+		}]);
+	
+		return BABYInfo;
+	}(_react2.default.Component);
+	
+	exports.default = BABYInfo;
+
+/***/ },
+
+/***/ "Da/a":
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__("I/Mq");
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var d3 = __webpack_require__(1);
+	
+	var Growup = function (_React$Component) {
+		_inherits(Growup, _React$Component);
+	
+		function Growup(props) {
+			_classCallCheck(this, Growup);
+	
+			var _this = _possibleConstructorReturn(this, (Growup.__proto__ || Object.getPrototypeOf(Growup)).call(this, props));
+	
+			_this.width = props.width || 400;
+			_this.height = props.height || 250;
+			_this.points = props.points || [];
+			_this.datas = [{ "x": 0, "y": 49, "z": 2650 }, { "x": 1, "y": 53.5, "z": 3900 }];
+			return _this;
+		}
+	
+		_createClass(Growup, [{
+			key: "componentDidMount",
+			value: function componentDidMount() {
+				this.drawB();
+			}
+		}, {
+			key: "drawB",
+			value: function drawB(a0) {
+				//svg容器
+				var svgContainer = d3.select(this.refs.svg);
+	
+				var lineData = this.datas;
+				var circleData = [];
+	
+				lineData.forEach(function (element) {
+					var old = {};
+					old.x = element.x;
+					old.y = element.y;
+					old.z = element.z;
+					element.y = 200 - 50 - element.y;
+					element.x = Math.round(400 / 6) * element.x + 50;
+					element.z = 200 - Math.round(element.z / 100);
+					circleData.push({ x: element.x, y: 200, type: 0, value: old.x + "月" });
+					circleData.push({ x: element.x, y: element.y, type: 1, value: old.y + "cm" });
+					circleData.push({ x: element.x, y: element.z, type: 2, value: old.z + "g" });
+				});
+				//----------身长  线生成器
+				var lineFun1 = d3.line().x(function (d) {
+					return d.x;
+				}).y(function (d) {
+					return d.y;
+				});
+				//.curve(d3.curveBasisClosed.bate(0.5));
+	
+				//把path扔到容器中，并给d赋属性
+				var lineGraph1 = svgContainer.append("path").attr("d", lineFun1(lineData)).attr("stroke", "green").attr("stroke-width", 1).attr("fill", "none");
+	
+				//--------------体重 线生成器
+				var lineFun2 = d3.line().x(function (d) {
+					return d.x;
+				}).y(function (d) {
+					return d.z;
+				});
+				//.curve(d3.curveBasisClosed.bate(0.5));
+	
+				//把path扔到容器中，并给d赋属性
+				var lineGraph2 = svgContainer.append("path").attr("d", lineFun2(lineData)).attr("stroke", "red").attr("stroke-width", 1).attr("fill", "none");
+				// ------数据点标记
+				svgContainer.selectAll("circle").data(circleData.filter(function (data) {
+					return data.type !== 0;
+				})).enter().append("circle").attr("cx", function (data) {
+					return data.x;
+				}).attr("cy", function (data) {
+					return data.y;
+				}).attr("r", 3).attr("fill", "white").attr("stroke", function (data) {
+					return data.type == 2 ? "red" : "green";
+				}).attr("stroke-width", 2);
+	
+				svgContainer.selectAll("text").data(circleData).enter().append("text").attr("x", function (data) {
+					return data.x;
+				}).attr("y", function (data) {
+					return data.y;
+				}).text(function (data) {
+					return data.value == "0月" ? "出生" : data.value;
+				});
+	
+				// svgContainer.selectAll("circle")
+				// .data(lineData2)
+				// .enter()
+				// .append("circle")
+				// .transition().duration(1500)
+				// .attr("cx",function(data){return data.x})
+				// .attr("cy",function(data){return data.y})
+				// .attr("r",5)
+				// .attr("fill","white")
+				// .attr("stroke","green")
+				// .attr("stroke-width",2);
+				// svgContainer.select("circle").transition().duration(2000)
+				// .attrTween("cy",function(){
+				// 	//return d3.interpolate(0,400);
+				// 	return function(t){
+				// 		return 100 - Math.sin((t)*2*Math.PI*2)*100;
+				// 	}
+				// }).attrTween("cx",function(){
+				// 	var endx = 400;
+				// 	return function(t){
+				// 		return t*endx;
+				// 	};
+				// })
+			}
+		}, {
+			key: "render",
+			value: function render() {
+	
+				var path = d3.path();
+				// this.props.points.map(function(one,index){
+				// 	if(index==0){
+				// 		path.moveTo(one.x, one.y);
+				// 	}else{
+				// 		path.lineTo(one.x, one.y);
+				// 	}
+				// });
+				path.moveTo(0, 0);
+				path.bezierCurveTo(100, 100, 0, 200, 400, 200);
+				path.bezierCurveTo(100, 200, 400, 200, 400, 100);
+				path.closePath();
+				return _react2.default.createElement("svg", { ref: "svg", width: this.width, height: this.height,
+					style: { "background": "white" } });
+			}
+		}]);
+	
+		return Growup;
+	}(_react2.default.Component);
+	
+	exports.default = Growup;
+
+/***/ },
+
 /***/ "XBRq":
 /***/ function(module, exports) {
 
@@ -48948,12 +49174,16 @@
 
 /***/ },
 
-/***/ "LRXd":
-/***/ function(module, exports) {
+/***/ "oCxA":
+/***/ function(module, exports, __webpack_require__) {
 
-	exports.f = {}.propertyIsEnumerable;
+	// 7.1.13 ToObject(argument)
+	var defined = __webpack_require__("b9Up");
+	module.exports = function(it){
+	  return Object(defined(it));
+	};
 
 /***/ }
 
 /******/ })));
-//# sourceMappingURL=app.f8e828bd327c6c8f07de.js.map
+//# sourceMappingURL=app.70265f573c8bcde506b5.js.map
