@@ -45813,20 +45813,13 @@
 	
 			var ss = this.props.result ? this.props.result.shishen ? this.props.result.shishen : [] : [];
 			var ssRow = [];
+			var t = ["年柱", "月柱", "时柱"];
 			for (var i = 0; i < ss.length; i++) {
 				var href = "https://www.bing.com/search?q=" + ss[i];
 				ssRow.push(_react2.default.createElement(
-					_reactBootstrap.Row,
-					null,
-					_react2.default.createElement(
-						_reactBootstrap.Col,
-						{ xs: 12 },
-						_react2.default.createElement(
-							"a",
-							{ href: href, target: "_blank" },
-							ss[i]
-						)
-					)
+					_reactBootstrap.Button,
+					{ href: href, target: "_blank" },
+					t[i] + ":" + ss[i]
 				));
 			}
 			return _react2.default.createElement(
@@ -45930,36 +45923,36 @@
 						_reactBootstrap.Modal.Body,
 						null,
 						_react2.default.createElement(
-							_reactBootstrap.Grid,
+							_reactBootstrap.ListGroup,
 							null,
 							_react2.default.createElement(
-								_reactBootstrap.Row,
+								_reactBootstrap.ListGroupItem,
 								null,
-								_react2.default.createElement(
-									_reactBootstrap.Col,
-									{ xs: 12 },
-									this.props.result ? this.props.result.gz : ""
-								)
+								"\u516B\u5B57\uFF1A",
+								this.props.result ? this.props.result.gz : ""
 							),
 							_react2.default.createElement(
-								_reactBootstrap.Row,
+								_reactBootstrap.ListGroupItem,
 								null,
-								_react2.default.createElement(
-									_reactBootstrap.Col,
-									{ xs: 12 },
-									this.props.result ? this.props.result.yinyang : ""
-								)
+								"\u9634\u9633\uFF1A",
+								this.props.result ? this.props.result.yinyang : ""
 							),
 							_react2.default.createElement(
-								_reactBootstrap.Row,
+								_reactBootstrap.ListGroupItem,
 								null,
-								_react2.default.createElement(
-									_reactBootstrap.Col,
-									{ xs: 12 },
-									this.props.result ? this.props.result.wx : ""
-								)
+								"\u4E94\u884C\uFF1A",
+								this.props.result ? this.props.result.wx : ""
 							),
-							ssRow
+							_react2.default.createElement(
+								_reactBootstrap.ListGroupItem,
+								null,
+								"\u5341\u795E\uFF1A",
+								_react2.default.createElement(
+									_reactBootstrap.ButtonToolbar,
+									null,
+									ssRow
+								)
+							)
 						)
 					)
 				)
@@ -49506,4 +49499,4 @@
 /***/ }
 
 /******/ })));
-//# sourceMappingURL=app.518430b76ebaa6b6869f.js.map
+//# sourceMappingURL=app.0c45215fca0970ac1138.js.map
