@@ -45770,8 +45770,14 @@
 		},
 		handleSubmit: function handleSubmit(e) {
 			e.preventDefault();
-			var d = this.state.birthday.toString();
-			d = d.replace(/-/g, "");
+			var d = this.state.birthday;
+			// d = d.replace(/-/g,"");
+			if (d == null || d == "") {
+				alert('请输入出生日期');
+				return;
+			} else {
+				d = new Date(d);
+			}
 			this.props.dispatch((0, _bzAction.czService)(d, this.state.month, this.state.clock));
 			this.setState({ showBz: true });
 		},
@@ -45805,6 +45811,24 @@
 			var months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 			var clocks = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
 	
+			var ss = this.props.result ? this.props.result.shishen ? this.props.result.shishen : [] : [];
+			var ssRow = [];
+			for (var i = 0; i < ss.length; i++) {
+				var href = "https://www.bing.com/search?q=" + ss[i];
+				ssRow.push(_react2.default.createElement(
+					_reactBootstrap.Row,
+					null,
+					_react2.default.createElement(
+						_reactBootstrap.Col,
+						{ xs: 12 },
+						_react2.default.createElement(
+							"a",
+							{ href: href, target: "_blank" },
+							ss[i]
+						)
+					)
+				));
+			}
 			return _react2.default.createElement(
 				"div",
 				null,
@@ -45899,7 +45923,7 @@
 						_react2.default.createElement(
 							_reactBootstrap.Modal.Title,
 							null,
-							"\u8BA1\u7B97\u7ED3\u679C"
+							"\u7ED3\u679C"
 						)
 					),
 					_react2.default.createElement(
@@ -45914,9 +45938,28 @@
 								_react2.default.createElement(
 									_reactBootstrap.Col,
 									{ xs: 12 },
-									this.props.bz
+									this.props.result ? this.props.result.gz : ""
 								)
-							)
+							),
+							_react2.default.createElement(
+								_reactBootstrap.Row,
+								null,
+								_react2.default.createElement(
+									_reactBootstrap.Col,
+									{ xs: 12 },
+									this.props.result ? this.props.result.yinyang : ""
+								)
+							),
+							_react2.default.createElement(
+								_reactBootstrap.Row,
+								null,
+								_react2.default.createElement(
+									_reactBootstrap.Col,
+									{ xs: 12 },
+									this.props.result ? this.props.result.wx : ""
+								)
+							),
+							ssRow
 						)
 					)
 				)
@@ -45925,15 +45968,15 @@
 	});
 	
 	function select(state) {
-		var bz;
+		var result;
 		if (state.bz.type == "RECEIVE_POSTS") {
-			bz = state.bz.msg;
-			bz = bz.substring(4, bz.length - 6);
+			result = state.bz.msg;
+			//bz = bz.substring(4,bz.length - 6);
 		} else {
-			bz = state.bz.msg;
+			result = state.bz.msg;
 		}
 		return {
-			bz: bz
+			result: result
 		};
 	}
 	BzForm = (0, _reactRedux.connect)(select)(BzForm);
@@ -47697,7 +47740,7 @@
 /***/ "TtAH":
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -47708,6 +47751,10 @@
 	var _isomorphicFetch = __webpack_require__("6kQO");
 	
 	var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
+	
+	var _BzCounter = __webpack_require__("Jns5");
+	
+	var _BzCounter2 = _interopRequireDefault(_BzCounter);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -47722,16 +47769,25 @@
 	function czService(birthday, month, clock) {
 		return function (dispatch) {
 			dispatch(requestPosts());
-			return (0, _isomorphicFetch2.default)("/stars/bz?birthday=" + birthday + "&month=" + month + "&clock=" + clock, {
-				method: "POST",
-				headers: {
-					'Content-type': "text/html;charset=utf-8"
-				}
-			}).then(function (response) {
-				return response.text();
-			}).then(function (text) {
+			var p = new Promise(function (resolve, reject) {
+				var counter = new _BzCounter2.default();
+	
+				resolve(counter.count(birthday, month, clock));
+				return;
+			});
+			return p.then(function (text) {
 				dispatch(receivePosts(text));
 			});
+			// return fetch(`/stars/bz?birthday=${birthday}&month=${month}&clock=${clock}`,{
+			// 			method:"POST",
+			// 		    headers:{
+			// 		    	'Content-type' : "text/html;charset=utf-8"
+			// 		    }
+			// 		}).then(function(response){
+			// 			return response.text();
+			// 		}).then(function(text){
+			// 		    dispatch( receivePosts(text) );
+			// 		});
 		};
 	}
 	
@@ -47749,6 +47805,270 @@
 			result: datas
 		};
 	}
+
+/***/ },
+
+/***/ "Jns5":
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var BzCounter = function () {
+	    function BzCounter() {
+	        _classCallCheck(this, BzCounter);
+	    }
+	
+	    _createClass(BzCounter, [{
+	        key: "count",
+	        value: function count(birthday, month, clock) {
+	            var result = {};
+	            // ----干支
+	            var gzYear = getGZYear(birthday);
+	            var gzMonth = getGZMonth(birthday, month);
+	            var gzDay = getGZDay(birthday);
+	            var gzClock = getGZClock(birthday, clock);
+	            var gz = gzYear + "" + gzMonth + "" + gzDay + "" + gzClock;
+	
+	            //----阴阳
+	            var tt = gz.split("");
+	            var yinyang = "";
+	            for (var i = 0; i < tt.length; i++) {
+	                if (i % 2 == 0) {
+	                    yinyang += getYY(tt[i], 0);
+	                } else {
+	                    yinyang += getYY(tt[i], 1);
+	                }
+	            }
+	            //----五行
+	            var wx = "";
+	            for (var i = 0; i < tt.length; i++) {
+	                if (i % 2 == 0) {
+	                    wx += getWX(tt[i], 0);
+	                } else {
+	                    wx += getWX(tt[i], 1);
+	                }
+	            }
+	            //---性质
+	            var yys = yinyang.split("");
+	            //---生克
+	            //List<String> shengke =new ArrayList<String>();
+	            var shishen = [];
+	            var wxs = wx.split("");
+	            for (var i = 0; i < wxs.length; i++) {
+	                if (i % 2 == 0 && i != 4) {
+	                    var xingzhi = "";
+	                    if (yys[4] == yys[i]) {
+	                        xingzhi = "同性";
+	                    } else {
+	                        xingzhi = "异性";
+	                    }
+	                    var SK = getShengKe(wxs[4], wxs[i]);
+	                    var SHEN = getSHEN(xingzhi, SK);
+	                    //shengke.add(wxs[4]+wxs[i]+":"+SK+" "+xingzhi+" "+SHEN);
+	                    shishen.push(SHEN);
+	                    // += ("https://www.bing.com/search?q="+SHEN)+"    "
+	                }
+	            }
+	            //------
+	            result.gz = gz;
+	            result.yinyang = yinyang;
+	            result.wx = wx;
+	            result.shishen = shishen;
+	
+	            return result;
+	        }
+	    }]);
+	
+	    return BzCounter;
+	}();
+	
+	function getGZYear(birthday) {
+	    var year = birthday.getFullYear();
+	    var gans = ["庚", "辛", "壬", "癸", "甲", "乙", "丙", "丁", "戊", "己"];
+	    var zhis = ["酉", "戌", "亥", "子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申"];
+	
+	    var g = year % 10;
+	    var gy = "";
+	    var z = year % 12 - 1;
+	    var zy = "";
+	    if (z < 0) {
+	        z = 11;
+	    }
+	    return gans[g] + gy + zhis[z] + zy;
+	}
+	function getGZMonth(birthday, month) {
+	    var year = birthday.getFullYear();
+	    var gans = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"];
+	    var zhis = ["寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥", "子", "丑"];
+	    //年天干
+	    var gYear = getGZYear(birthday).split("")[0];
+	    var tmp = 0;
+	    for (var i = 0; i < gans.length; i++) {
+	        tmp++;
+	        if (gYear == gans[i]) {
+	            break;
+	        }
+	    }
+	    //年天干：甲（己）年，正月为丙寅
+	    if (tmp > 5) {
+	        tmp = tmp - 5;
+	    }
+	    tmp = tmp * 2 + 1; //凑出规律
+	    var yg;
+	    yg = (tmp + (month - 1)) % 10; //---增加月份的因素
+	    if (yg == 0) {
+	        yg = 10;
+	    }
+	    return gans[yg - 1] + zhis[month - 1];
+	}
+	function getGZDay(birthday) {
+	    var gans = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"];
+	    var zhis = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
+	
+	    var fDate = new Date("1912-02-18");
+	    var dBirthday = new Date(birthday);
+	    if (null == fDate || null == dBirthday) {
+	        return "";
+	    }
+	
+	    var intervalMilli = dBirthday.getTime() - fDate.getTime();
+	    var days = Math.floor(intervalMilli / (24 * 60 * 60 * 1000));
+	    var tmp = days % 60;
+	    var g = tmp % 10;
+	    var z = tmp % 12;
+	    return gans[g] + zhis[z];
+	}
+	function getGZClock(birthday, clock) {
+	    var gans = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"];
+	    var zhis = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥", "子"];
+	    var gzDay = getGZDay(birthday);
+	    var zClock = "";
+	
+	    var sZ = 0;
+	    if (clock % 2 == 0) {
+	        sZ = clock / 2 - 1;
+	    } else {
+	        sZ = (clock + 1) / 2 - 1;
+	    }
+	    zClock = zhis[sZ + 1]; //---zhis应从-1开始；
+	    //System.out.println("时支："+zClock);
+	    var gDay = gzDay.substring(0, 1);
+	    var gD = 0;
+	    for (var i = 0; i < gans.length; i++) {
+	        var g = gans[i];
+	        gD++;
+	        if (gDay == g) {
+	            break;
+	        }
+	    }
+	    var tmp = gD * 2 + sZ; //时支数组是从0开始的
+	    if (tmp >= 10) {
+	        var t = Math.floor(tmp / 10);
+	        tmp = tmp - t * 10;
+	        if (tmp == 0) {
+	            tmp = 10;
+	        }
+	    }
+	    var gClock = gans[tmp - 1];
+	    return gClock + zClock;
+	}
+	function getYY(str, type) {
+	    var yangs = "";
+	    var yins = "";
+	    if (type == 0) {
+	        //---- 天干
+	        yangs = "甲、丙、戊、庚、壬";
+	        yins = "乙、丁、己、辛、癸";
+	    } else {
+	        //---- 地支
+	        yangs = "子、寅、辰、午、申、戌";
+	        yins = "丑、卯、巳、未、酉、亥";
+	    }
+	    if (yangs.indexOf(str) >= 0) {
+	        return "阳";
+	    } else if (yins.indexOf(str) >= 0) {
+	        return "阴";
+	    }
+	    return str;
+	}
+	function getWX(str, type) {
+	    var mu = "",
+	        huo = "",
+	        tu = "",
+	        jin = "",
+	        shui = "";
+	
+	    if (type == 0) {
+	        //---- 天干
+	        mu = "甲乙";
+	        huo = "丙丁";
+	        tu = "戊己";
+	        jin = "庚辛";
+	        shui = "壬癸";
+	    } else {
+	        //---- 地支
+	        mu = "寅、卯";
+	        huo = "午、巳";
+	        tu = "辰、戌、丑、未";
+	        jin = "申、酉";
+	        shui = "子、亥";
+	    }
+	    if (mu.indexOf(str) >= 0) {
+	        return "木";
+	    } else if (huo.indexOf(str) >= 0) {
+	        return "火";
+	    } else if (tu.indexOf(str) >= 0) {
+	        return "土";
+	    } else if (jin.indexOf(str) >= 0) {
+	        return "金";
+	    } else if (shui.indexOf(str) >= 0) {
+	        return "水";
+	    }
+	    return str;
+	}
+	function getShengKe(one1, one2) {
+	    var rel_sheng = "金水木火土金";
+	    var rel_ke = "金木土水火金";
+	    var rtn = "";
+	    if (one1 === one2) {
+	        rtn = "同我";
+	    } else {
+	        if (rel_sheng.indexOf(one1 + one2) >= 0) {
+	            rtn = "我生";
+	        } else if (rel_sheng.indexOf(one2 + one1) >= 0) {
+	            rtn = "生我";
+	        }
+	        if (rel_ke.indexOf(one1 + one2) >= 0) {
+	            rtn = "我克";
+	        } else if (rel_ke.indexOf(one2 + one1) >= 0) {
+	            rtn = "克我";
+	        }
+	    }
+	    return rtn;
+	}
+	function getSHEN(xingzhi, SK) {
+	    var shishen = ["正官:异性,克我:xxxxxx", "偏官:同性,克我:xxxxxx", "正印:异性,生我:xxxxx", "偏印:同性,生我:xxxxx", "正财:异性,我克:xxxxxx", "偏财:同性,我克:xxxxxx", "伤官:异性,我生:xxxxx", "食神:同性,我生:xxxxx", "劫财:异性,同我:xxxxx", "比肩:同性,同我:xxxxx"];
+	    var one = xingzhi + "," + SK;
+	    var rtn = "";
+	    for (var i = 0; i < shishen.length; i++) {
+	        var SHEN = shishen[i];
+	        if (SHEN.indexOf(one) >= 0) {
+	            rtn = SHEN.split(":")[0];
+	
+	            break;
+	        }
+	    }
+	    return rtn;
+	}
+	exports.default = BzCounter;
 
 /***/ },
 
@@ -49186,4 +49506,4 @@
 /***/ }
 
 /******/ })));
-//# sourceMappingURL=app.70265f573c8bcde506b5.js.map
+//# sourceMappingURL=app.518430b76ebaa6b6869f.js.map
