@@ -49341,13 +49341,19 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _datas = __webpack_require__("ZhWI");
+	var _datas = __webpack_require__("fHN8");
 	
 	var _datas2 = _interopRequireDefault(_datas);
+	
+	var _reactBootstrap = __webpack_require__("B2kA");
 	
 	var _isomorphicFetch = __webpack_require__("6kQO");
 	
 	var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
+	
+	var _d = __webpack_require__(1);
+	
+	var _d2 = _interopRequireDefault(_d);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -49357,8 +49363,6 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var d3 = __webpack_require__(1);
-	
 	var Growup = function (_React$Component) {
 		_inherits(Growup, _React$Component);
 	
@@ -49367,7 +49371,7 @@
 	
 			var _this2 = _possibleConstructorReturn(this, (Growup.__proto__ || Object.getPrototypeOf(Growup)).call(this, props));
 	
-			_this2.width = props.width || 400;
+			_this2.width = props.width || 600;
 			_this2.height = props.height || 250;
 			_this2.points = props.points || [];
 			_this2.datas = [];
@@ -49378,7 +49382,7 @@
 			key: "componentDidMount",
 			value: function componentDidMount() {
 				var _this = this;
-				(0, _isomorphicFetch2.default)("/css/datas.json", {
+				(0, _isomorphicFetch2.default)("/json/datas.json", {
 					method: "GET",
 					headers: {
 						'Content-type': "application/json;charset=utf-8"
@@ -49394,7 +49398,7 @@
 			key: "drawB",
 			value: function drawB(a0) {
 				//svg容器
-				var svgContainer = d3.select(this.refs.svg);
+				var svgContainer = _d2.default.select(this.refs.svg);
 	
 				var lineData = this.datas;
 				var circleData = [];
@@ -49412,7 +49416,7 @@
 					circleData.push({ x: element.x, y: element.z, type: 2, value: old.z + "g" });
 				});
 				//----------身长  线生成器
-				var lineFun1 = d3.line().x(function (d) {
+				var lineFun1 = _d2.default.line().x(function (d) {
 					return d.x;
 				}).y(function (d) {
 					return d.y;
@@ -49423,7 +49427,7 @@
 				var lineGraph1 = svgContainer.append("path").attr("d", lineFun1(lineData)).attr("stroke", "green").attr("stroke-width", 1).attr("fill", "none");
 	
 				//--------------体重 线生成器
-				var lineFun2 = d3.line().x(function (d) {
+				var lineFun2 = _d2.default.line().x(function (d) {
 					return d.x;
 				}).y(function (d) {
 					return d.z;
@@ -49479,7 +49483,7 @@
 			key: "render",
 			value: function render() {
 	
-				var path = d3.path();
+				var path = _d2.default.path();
 				// this.props.points.map(function(one,index){
 				// 	if(index==0){
 				// 		path.moveTo(one.x, one.y);
@@ -49491,8 +49495,17 @@
 				path.bezierCurveTo(100, 100, 0, 200, 400, 200);
 				path.bezierCurveTo(100, 200, 400, 200, 400, 100);
 				path.closePath();
-				return _react2.default.createElement("svg", { ref: "svg", width: this.width, height: this.height,
-					style: { "background": "white" } });
+				return _react2.default.createElement(
+					"div",
+					null,
+					_react2.default.createElement("svg", { ref: "svg", width: this.width, height: this.height,
+						style: { "background": "white" } }),
+					_react2.default.createElement(
+						_reactBootstrap.Button,
+						null,
+						"\u7F16\u8F91"
+					)
+				);
 			}
 		}]);
 	
@@ -49503,10 +49516,10 @@
 
 /***/ },
 
-/***/ "ZhWI":
+/***/ "fHN8":
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "css/datas.json";
+	module.exports = __webpack_require__.p + "json/datas.json";
 
 /***/ },
 
@@ -49550,4 +49563,4 @@
 /***/ }
 
 /******/ })));
-//# sourceMappingURL=app.725983f7452c9e16f384.js.map
+//# sourceMappingURL=app.a1be49b269ce517f4a5e.js.map

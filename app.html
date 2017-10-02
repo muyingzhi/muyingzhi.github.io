@@ -1,18 +1,1 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"><title>APP</title><script src="https://cdn.bootcss.com/d3/4.8.0/d3.min.js"></script><script src="http://api.map.baidu.com/components?ak=VfsHXCP1AUMsusGdvpmUg2gGSiULAQL7&v=1.0"></script><link href="css/app-50303e25084e1a91da6eabfb3a6b21d6.css" rel="stylesheet"></head><body><div id="main"></div><div id="demo"></div><h4>source path:~/React/web-bootcss</h4><script>var x=document.getElementById("demo");
-function getLocation()
-  {
-  if (navigator.geolocation)
-    {
-    navigator.geolocation.getCurrentPosition(showPosition,function(){
-    	console.log( "geo ERROR")
-    });
-    }
-  else{
-  		console.log("Geolocation is not supported by this browser.")
-  	}
-  }
-function showPosition(position)
-  {
-  x.innerHTML="Latitude: " + position.coords.latitude +
-  "<br />Longitude: " + position.coords.longitude;
-  }</script><script src="js/app.725983f7452c9e16f384.js"></script></body></html>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"><title>APP</title><link href="css/app-50303e25084e1a91da6eabfb3a6b21d6.css" rel="stylesheet"></head><body><div id="main" style="width:400px"></div><div id="demo"></div><h4>source path:~/React/web-bootcss</h4><script src="js/app.a1be49b269ce517f4a5e.js"></script></body></html>
