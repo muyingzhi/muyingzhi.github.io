@@ -25,7 +25,7 @@ module.exports = {
     output: {
         path: ASSETS_BUILD_PATH,
         publicPath: ASSETS_PUBLIC_PATH,
-        filename: '[name].js'
+        filename: 'js/[name].js'
     },
 
     module: {
@@ -40,7 +40,14 @@ module.exports = {
                 test: /\.js?$/,
                 exclude: /(node_modules)/,
                 // 建议把 babel 的运行时配置放在 .babelrc 里，从而与 eslint-loader 等共享配置
-                loader: 'babel-loader'
+                use:[
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: ["env","react"]
+                        }
+                    }
+                ]
             },
             {
                 test: /\.(png|jpg|gif)$/,

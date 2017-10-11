@@ -67,8 +67,9 @@ config.externals =  {
     // d3: 'd3'
 }
 config.devtool = 'eval';
-const PUBLIC_PATH = "";
+const PUBLIC_PATH = "/dist/";
 config.output.publicPath = PUBLIC_PATH;
+
 config.plugins.push(
   new HtmlwebpackPlugin({
     filename: 'index.html',
@@ -76,7 +77,7 @@ config.plugins.push(
     chunksSortMode : function(){return 1},//"auto",
     template: "app.html",
     minify:  false ,
-    dlljs: PUBLIC_PATH + "dll.js"
+    dlljs: PUBLIC_PATH + "js/dll.js"
   })
 )
 module.exports = config;
