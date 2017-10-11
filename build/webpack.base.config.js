@@ -25,7 +25,7 @@ module.exports = {
     output: {
         path: ASSETS_BUILD_PATH,
         publicPath: ASSETS_PUBLIC_PATH,
-        filename: 'js/[name].js'
+        filename: 'js/[name]_[hash].js'
     },
 
     module: {

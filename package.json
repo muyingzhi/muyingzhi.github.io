@@ -8,7 +8,7 @@
     "test": "tests"
   },
   "scripts": {
-    "build": "webpack --config build/webpack.release.config.js && cp src/lib/dll.js dist/js/",
+    "build": "webpack --config build/webpack.release.config.js && cp src/lib/dll.js dist/js/  && cp dist/index.html ./",
     "dev": "webpack-dev-server --config build/webpack.dev.config.js",
     "start": "npm run dev"
   },
