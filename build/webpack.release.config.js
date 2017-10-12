@@ -41,13 +41,13 @@ config.plugins.push(
 )
 //---------------css end
 config.plugins.push(
-   new webpack.DllReferencePlugin({
-            context: ROOT_PATH,
-            manifest: require(ROOT_PATH + "/src/lib/manifest.json"),
-            // name: "vendors",
-            // scope: "xyz",
-            // sourceType: "var"
-  }),
+  //  new webpack.DllReferencePlugin({
+  //           context: ROOT_PATH,
+  //           manifest: require(ROOT_PATH + "/src/lib/manifest.json"),
+  //           // name: "vendors",
+  //           // scope: "xyz",
+  //           // sourceType: "var"
+  // }),
   // 官方文档推荐使用下面的插件确保 NODE_ENV
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
@@ -62,10 +62,13 @@ config.plugins.push(
       output: {
         comments: false
       }
-  }),
-  new CopyWebpackPlugin([
-    { from: "lib/dll.js", to: "js/dll.js"}
-  ],{})
+  })
+  //,
+  // new CopyWebpackPlugin([
+  //     { from: "lib/dll.js", to: "js/dll.js"}
+  //   ],{
+  //     debug: false
+  // })
 );
 
 config.externals =  {
@@ -76,13 +79,27 @@ const PUBLIC_PATH = "/dist/";
 config.output.publicPath = PUBLIC_PATH;
 
 config.plugins.push(
+  new webpack.optimize.CommonsChunkPlugin({
+    name: 'vendor',
+    minChunks: function (module, count) {
+      // any required modules inside node_modules are extracted to vendor
+      console.log(`----${module.resource}`)
+      return (
+        module.resource &&
+        /\.js$/.test(module.resource) &&
+        module.resource.indexOf(
+          path.join(__dirname, '../node_modules')
+        ) === 0
+      )
+    }
+  }),
   new HtmlwebpackPlugin({
     filename: 'index.html',
-    chunks: [ 'index'],
-    chunksSortMode : function(){return 1},//"auto",
+    // chunks: [ 'index'],
+    chunksSortMode : "dependency",//function(){return 1},//"auto",
     template: "app.html",
     minify:  false ,
-    dlljs: PUBLIC_PATH + "js/dll.js"
+    // dlljs: PUBLIC_PATH + "js/dll.js"
   })
 )
 module.exports = config;
