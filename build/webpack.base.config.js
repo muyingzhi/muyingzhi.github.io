@@ -27,14 +27,19 @@ module.exports = {
         publicPath: ASSETS_PUBLIC_PATH,
         filename: 'js/[name]_[hash].js'
     },
-
     module: {
         rules: [
             // {
             //     enforce: 'pre',  // ESLint 优先级高于其他 JS 相关的 loader
-            //     test: /\.jsx?$/,
+            //     test: /\.js?$/,
             //     exclude: /node_modules/,
-            //     loader: 'eslint-loader'
+            //     loader: 'eslint-loader',
+            //     options: {
+            //         "camelcase": true,
+            //         "asi": true,
+            //         "lastsemic": true,
+            //         "esversion": 6
+            //     }
             // },
             {
                 test: /\.js?$/,

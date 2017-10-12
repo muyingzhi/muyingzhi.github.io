@@ -69,7 +69,7 @@ const D3Rotate = React.createClass({
 		this.float(this.refs.svg)
 	},
 	render: function(){
-		return <svg ref="svg" onClick={this.float}/>;
+		return <svg ref="svg" onClick={this.float} />;
 	}
 });
 function draw(ele){

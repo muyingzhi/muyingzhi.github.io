@@ -43,18 +43,19 @@ const Obj = React.createClass({
             menuItems.push(
               <NavDropdown id={"Menu_"+i} key={"Menu_"+i} title={title}>
                 {items}
-              </NavDropdown>);
+              </NavDropdown >
+            );
           }else{
             if(startIndex==0){
               menuItems.push(
               <NavItem id={"Menu_"+i} key={"Menu_"+i} >
                 {one.text}
-              </NavItem>);
+              </ NavItem > );
             }else{
               menuItems.push(
                 <MenuItem id={"Menu_"+i} key={"Menu_"+i} >
                   {one.text}
-                </MenuItem>);
+                </ MenuItem >);
             }
           }
         }

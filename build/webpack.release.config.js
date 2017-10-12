@@ -2,6 +2,8 @@ const webpack = require('webpack');
 const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlwebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+
 const ROOT_PATH = path.resolve(__dirname,"../");
 
 // 读取同一目录下的 base config
@@ -60,7 +62,10 @@ config.plugins.push(
       output: {
         comments: false
       }
-  })
+  }),
+  new CopyWebpackPlugin([
+    { from: "lib/dll.js", to: "js/dll.js"}
+  ],{})
 );
 
 config.externals =  {

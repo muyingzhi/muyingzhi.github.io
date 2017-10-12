@@ -62,16 +62,16 @@ class BzCounter {
                 }
                 SHEN = getSHEN(xingzhi,SK);
                 SHEN = t[Math.floor(i/2)] + ":" +SHEN;
-                shishen.push(SHEN)
+                shishen.push(SHEN);
             }
         }
         //------
-		result.gz = gz
-		result.yinyang = yinyang
-		result.wx = wx
-		result.shishen= shishen
+		result.gz = gz;
+		result.yinyang = yinyang;
+		result.wx = wx;
+		result.shishen= shishen;
 
-		return result
+		return result;
 	}
 }
 
