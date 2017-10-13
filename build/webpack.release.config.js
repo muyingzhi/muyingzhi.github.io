@@ -74,7 +74,7 @@ config.plugins.push(
 config.externals =  {
     // d3: 'd3'
 }
-config.devtool = 'eval';
+config.devtool = 'source-map';
 const PUBLIC_PATH = "/dist/";
 config.output.publicPath = PUBLIC_PATH;
 
@@ -83,7 +83,6 @@ config.plugins.push(
     name: 'vendor',
     minChunks: function (module, count) {
       // any required modules inside node_modules are extracted to vendor
-      console.log(`----${module.resource}`)
       return (
         module.resource &&
         /\.js$/.test(module.resource) &&

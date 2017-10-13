@@ -10,10 +10,10 @@ export default React.createClass({
             collapse: true,
         };
     },
-    // mixins: [Lifecycle],
-    // routerWillLeave(){
-    //     return "确定退出吗？"
-    // },
+    mixins: [Lifecycle],
+    routerWillLeave(){
+        return "确定退出吗？"
+    },
     onCollapseChange() {
         this.setState({
           collapse: !this.state.collapse,

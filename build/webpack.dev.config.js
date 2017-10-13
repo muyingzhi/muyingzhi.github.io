@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const HtmlwebpackPlugin = require('html-webpack-plugin');
 // 读取同一目录下的 base config
 const config = require('./webpack.base.config');
-const PUBLIC_PATH = "/dist/"
+const PUBLIC_PATH = "/"
 config.output.publicPath = PUBLIC_PATH;
 
 // 添加 webpack-dev-server 相关的配置项
