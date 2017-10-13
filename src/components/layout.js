@@ -12,7 +12,7 @@ export default React.createClass({
     },
     mixins: [Lifecycle],
     routerWillLeave(){
-        return "确定退出吗？"
+        return "确定转换吗？"
     },
     onCollapseChange() {
         this.setState({
