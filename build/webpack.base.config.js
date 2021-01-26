@@ -10,7 +10,7 @@ const SRC_PATH = path.resolve('./src');
 // 打包后的资源根目录（本地物理文件路径）
 const ASSETS_BUILD_PATH = path.resolve('./dist');
 // 资源根目录（可以是 CDN 上的绝对路径，或相对路径）
-const ASSETS_PUBLIC_PATH = '';
+const ASSETS_PUBLIC_PATH = '/dist/';
 
 module.exports = {
     context: SRC_PATH, // 设置源代码的默认根路径
@@ -20,7 +20,8 @@ module.exports = {
     entry: {
         // vendors: './lib/dll.js',
         // 注意 entry 中的路径都是相对于 SRC_PATH 的路径
-        index: './app.js'
+        app: './app.js',
+        grid: "./grid.js"
     },
     output: {
         path: ASSETS_BUILD_PATH,
@@ -101,7 +102,6 @@ module.exports = {
         ]
     },
     plugins: [
-       
         // 每次打包前，先清空原来目录中的内容
         new CleanWebpackPlugin([ASSETS_BUILD_PATH], { root: path.resolve('./'), verbose: true })
     ]    

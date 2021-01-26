@@ -1,47 +1,12 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>租赁网格</title>
-    <style>
-        .show-grid div{border: 1px solid rgb(51,51,51);height: 60px;}
-    </style>
-    <!-- Bootstrap -->
-    <link href="./bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
-  </head>
-  <body>
-    <div class="container">
-
-        <div class="page-header">
-            <h1>租赁网格</h1>
-        </div>
-        <div class="row show-grid">
-            <div id="firstGrid" class="col-md-1 col-xs-1" style="border-right-style:none;border-bottom-style:none;"></div>
-            <div class="col-md-1 col-xs-1" style="border-right-style:none;border-bottom-style:none;"></div>
-            <div class="col-md-1 col-xs-1" style="border-right-style:none;border-bottom-style:none;"></div>
-            <div class="col-md-1 col-xs-1" style="border-right-style:none;border-bottom-style:none;"></div>
-            <div class="col-md-1 col-xs-1" style="border-right-style:none;border-bottom-style:none;"></div>
-            <div class="col-md-1 col-xs-1" style="border-right-style:none;border-bottom-style:none;"></div>
-            <div class="col-md-1 col-xs-1" style="border-right-style:none;border-bottom-style:none;"></div>
-            <div class="col-md-1 col-xs-1" style="border-right-style:none;border-bottom-style:none;"></div>
-            <div class="col-md-1 col-xs-1" style="border-right-style:none;border-bottom-style:none;"></div>
-            <div class="col-md-1 col-xs-1" style="border-right-style:none;border-bottom-style:none;"></div>
-            <div class="col-md-1 col-xs-1" style="border-right-style:none;border-bottom-style:none;"></div>
-            <div class="col-md-1 col-xs-1" style="border-bottom-style:none;"></div>
-        </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
-    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
-    <script src="./bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-    <script>
+require("./css/bootstrap.css");
+require("./css/bootstrap-theme.css");
+var $ = require("jquery");
+// import $ from "jquery";
         function drawGrid(rowNum,colNum){
             for(var i=0;i<rowNum;i++){
                 var $row = $('<div class="row show-grid"></div>');
                 for(var j=0;j<colNum;j++){
-                    $grid = $('<div class="col-md-1 col-xs-1" ></div>');
+                    var $grid = $('<div class="col-md-1 col-xs-1" ></div>');
                     var random=Math.random()*100;
                     if(random>90){
                         var color="";
@@ -128,6 +93,3 @@
         addTip(["","裕园5号院","18638211014"],1,1,6,6);
         addTip(["","裕园5号院","18638211014"],2,1,8,3);
         addTip(["","裕园5号院","18638211014"],1,1,9,12);
-    </script>
-  </body>
-</html>

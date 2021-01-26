@@ -68,10 +68,18 @@ config.plugins.push(
 );
 config.plugins.push(
     new HtmlwebpackPlugin({
-      filename: 'index.html',
-      chunks: [ 'index'],
+      filename: 'app.html',
+      chunks: [ 'app'],
       chunksSortMode : function(){return 1},//"auto",
       template: "app.html",
+      minify:  false ,
+      dlljs: ""
+    }),
+    new HtmlwebpackPlugin({
+      filename: 'rental_grid.html',
+      chunks: [ 'grid'],
+      chunksSortMode : function(){return 1},//"auto",
+      template: "./rental_grid.html",
       minify:  false ,
       dlljs: ""
     })

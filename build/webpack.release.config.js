@@ -75,28 +75,34 @@ config.externals =  {
     // d3: 'd3'
 }
 config.devtool = 'source-map';
-const PUBLIC_PATH = "/dist/";
-config.output.publicPath = PUBLIC_PATH;
+// config.output.publicPath = "/";
 
 config.plugins.push(
-  new webpack.optimize.CommonsChunkPlugin({
-    name: 'vendor',
-    minChunks: function (module, count) {
-      // any required modules inside node_modules are extracted to vendor
-      return (
-        module.resource &&
-        /\.js$/.test(module.resource) &&
-        module.resource.indexOf(
-          path.join(__dirname, '../node_modules')
-        ) === 0
-      )
-    }
-  }),
+  // new webpack.optimize.CommonsChunkPlugin({
+  //   name: 'vendor',
+  //   minChunks: function (module, count) {
+  //     // any required modules inside node_modules are extracted to vendor
+  //     return (
+  //       module.resource &&
+  //       /\.js$/.test(module.resource) &&
+  //       module.resource.indexOf(
+  //         path.join(__dirname, '../node_modules')
+  //       ) === 0
+  //     )
+  //   }
+  // }),
   new HtmlwebpackPlugin({
-    filename: 'index.html',
-    // chunks: [ 'index'],
+    filename: 'app.html',
+    chunks: [ 'app'],
     chunksSortMode : "dependency",//function(){return 1},//"auto",
     template: "app.html",
+    minify:  false ,
+    // dlljs: PUBLIC_PATH + "js/dll.js"
+  }),new HtmlwebpackPlugin({
+    filename: 'rental_grid.html',
+    chunks: [ 'grid'],
+    chunksSortMode : "dependency",//function(){return 1},//"auto",
+    template: "./rental_grid.html",
     minify:  false ,
     // dlljs: PUBLIC_PATH + "js/dll.js"
   })
