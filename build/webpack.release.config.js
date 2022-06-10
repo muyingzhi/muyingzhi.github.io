@@ -63,12 +63,12 @@ config.plugins.push(
         comments: false
       }
   })
-  //,
-  // new CopyWebpackPlugin([
-  //     { from: "lib/dll.js", to: "js/dll.js"}
-  //   ],{
-  //     debug: false
-  // })
+  ,
+  new CopyWebpackPlugin([
+      { from: "wuxianpu/*", to: ""}
+    ],{
+      debug: false
+  })
 );
 
 config.externals =  {
