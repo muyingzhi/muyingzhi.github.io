@@ -22,9 +22,17 @@ const clickMusicName = (event) => {
     // log('clickMusicName', event.target.dataset)
     // event.target.dataset 里面, 存的 answer
     let answer = event.target.dataset.answer
+
     // 点击之后, 推入结果数组
     // 另外用一个函数来做
     addAnswer(answer)
+    //当前的显示蓝色
+    var parentNode = event.target.parentNode;
+    var slibNodes = parentNode.children
+    for(let i=0;i<slibNodes.length;i++){
+        slibNodes[i].style.backgroundColor='white'
+    }
+    event.target.style.backgroundColor='#88F'
 }
 
 const addAnswer = answer => {
@@ -32,7 +40,7 @@ const addAnswer = answer => {
     let answerDiv = find('.div-answer-for-show')
     let oriAnswer = answerDiv.innerHTML
     // log(answer, `(${oriAnswer})`, 'ans')
-    let answerLenLimit = 5
+    let answerLenLimit = 1
     // oriAnswer 应该转换为 数组, 因为现在有 CP CM 等情况了
     // 有问题, innerHTML 为 空的时候, 是一个空字符串, split 出来的是一个 [''] 数组
     // 做一个 hack
@@ -54,6 +62,8 @@ const addAnswer = answer => {
         let newAnswer = oriAnswer.join(',')
         // log('text??', newAnswer, oriAnswer)
         answerDiv.innerHTML = newAnswer
+        //直接判提交，判答案
+        onSubmit()
     }
 }
 
@@ -94,6 +104,8 @@ const onSubmit = event => {
         } else {
             // 如果错了, 打印答案到 canvas 上面
             let ans = getStorage('currentQuizAnswer').join('-')
+            ans = ans.replace('P','');
+            ans = ans.replace('M','');
             drawResult('答案是: ' + ans)
             // 补充功能, 统计错误
             addErrorHistory(text)
@@ -137,6 +149,12 @@ const drawResult = text => {
 }
 
 const reflashQuiz = () => {
+    var parentNode = document.querySelector('.div-answer-selector')
+    var slibNodes = parentNode.children;
+    for(let i=0;i<slibNodes.length;i++){
+        let one = slibNodes[i];
+        one.style.backgroundColor='white'
+    }
     let notes = genRandomNotes()
     // let notes = ["A","DP","DP","G","E"]
     // log(notes, 'notes')
@@ -256,7 +274,7 @@ const drawOneQuiz = (ctx, note, drawStart) => {
     for (let i = 0; i < lineCount; i++) {
         y += 15
         let start = [x, y]
-        let end = [x + 40, y]
+        let end = [x + 260, y]
         drawLine(start, end, ctx, i)
     }
     // let note = 'EP'
@@ -315,13 +333,13 @@ const drawLine = (start, end, ctx, i) => {
     ctx.beginPath();
     if (i > 1 && i < 7) {
         // 中间的五条线
-        ctx.strokeStyle = "#FF0000"
+        ctx.strokeStyle = "#000000"
     } else if (i <= 1) {
         // 上加一线 和 上加二线
-        ctx.strokeStyle = "#00FF00"
+        ctx.strokeStyle = "#bbb"
     } else {
         // 下加一线 和 下加二线
-        ctx.strokeStyle = "#00FF00"
+        ctx.strokeStyle = "#bbb"
     }
     // ctx.moveTo(0,0);
     ctx.moveTo(start[0], start[1])
@@ -338,7 +356,7 @@ const genRandomNotes = () => {
     ]
     let result = []
     let i = 0
-    while (i < 5) {
+    while (i < 1) {
         // log('while')
         let num = notesList.length + 3
         let index = Math.ceil(Math.random() * num)
