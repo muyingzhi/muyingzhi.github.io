@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <style>
+    canvas {
+      border: 1px solid gray;
+    }
+    tr {
+      height: 80px;
+    }
+    td {
+      width: 50px; font-size: x-large;text-align: center;
+    }
+    tr .td-title {
+      width: 120px;font-size: 12;
+    }
+  </style>
+  <link rel="stylesheet" href="main.css">
+  <!-- This example is available at: https://jsfiddle.net/smyht3q5/ -->
+  <body>
+
+    <h2 style="margin: 10px 0;">按键盘的字母“CDEFGAB"与音符对应。按数字0，刷新题目。</h2>
+    <canvas id="output"></canvas>
+
+    <table class="div-answer-selector">
+      <tr>
+        <td class="td-title">正确答案:</td><td>D</td><td>D</td><td>D</td><td>D</td>
+      </tr>
+      <tr>
+        <td>您的答案:</td><td>D</td><td>D</td><td>D</td><td>D</td>
+      </tr>
+    </table>
+    <div class="div-answer-selector" style="padding-top: 20px;">
+      <div><h2 id="yourScore"></h2></div>
+  </div>
+    <script src="./vexflow.js"></script>
+    <script type="module" src="mystave.js"> </script>
+    
+  </body>
+</html>
