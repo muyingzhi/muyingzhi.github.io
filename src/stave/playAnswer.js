@@ -33,11 +33,13 @@ export function genRandomNotes(notesCount){
     let result = []
     let i = 0
     while (i < notesCount) {
-        // log('while')
+        // 
         let num = notesList.length + 3
+        // 音 随机
         let index = Math.ceil(Math.random() * num)
-        // log('index', index)
-        let scale = Math.ceil(Math.random() * 3)+2;
+        // 音阶随机 3 4 5
+        const scale = Math.ceil(Math.random() * 3)+2;
+        // 拍随机 2 4 8 16
         const tmp =  Math.pow(2,Math.round(Math.random()*4 + 1))
         if (index < notesList.length) {
             let note = notesList[index]+scale+"/" + tmp
