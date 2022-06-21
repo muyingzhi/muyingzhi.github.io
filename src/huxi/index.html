@@ -1,0 +1,46 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    
+</head>
+
+<body >
+    
+    <div id="app" class="main" @keydown.enter="keyevent">
+        <el-row><el-col :span="10" :offset="10"><h1>呼吸测量示意图</h1></el-col></el-row>
+        <el-row>
+            <el-col :span="2" :offset="1">
+                <el-button type="success" @click="doStart">开始</el-button>
+            </el-col>
+            <el-col :span="3" :offset="1">
+                <el-button type="info" @click="doClear">清除</el-button>
+            </el-col>
+            <el-col :span="16">
+                <el-row>
+                    <el-col :span="24">
+                        <h2>仪表盘</h2>
+                        <div id="guage" style="width: 600px;height:300px;"></div>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="24">
+                        <h2>主要问题</h2>
+                        <div id="list" style="width: 600px;height:300px;"></div>
+                    </el-col>
+                </el-row>
+            </el-col>
+        </el-row>
+    </div> 
+    
+    <script type="text/javascript" src="./echarts.min.js"></script>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="https://unpkg.com/vue@2.6.14/dist/vue.min.js"></script>
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script type="module" src="huxi.js"> </script>
+</body>
+
+</html>

@@ -69,6 +69,18 @@ config.plugins.push(
     ],{
       debug: false
   })
+  ,
+  new CopyWebpackPlugin([
+      { from: "huxi/*", to: ""}
+    ],{
+      debug: false
+  })
+  ,
+  new CopyWebpackPlugin([
+      { from: "stave/*", to: ""}
+    ],{
+      debug: false
+  })
 );
 
 config.externals =  {

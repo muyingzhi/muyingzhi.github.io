@@ -1,3 +1,4 @@
+
 const showStaff = (event) => {
     // log('showStaff')
     // log(event)
@@ -158,7 +159,8 @@ const reflashQuiz = () => {
     let notes = genRandomNotes()
     // let notes = ["A","DP","DP","G","E"]
     // log(notes, 'notes')
-    showQuestion_quizStaffName(notes)
+    drawStave(notes);
+    // showQuestion_quizStaffName(notes)
     // 每次刷新的时候, 将答案保存在 localStorage 里面
     setStorage('currentQuizAnswer', notes)
     // 也得刷新答题区
@@ -248,21 +250,44 @@ const genDivFromObject = (object, divClassName) => {
 // 展示题目, 回答音名部分
 const showQuestion_quizStaffName = (notes) => {
     // 在 canvas 上面画题目
-    let c = find('.canvas-for-show')
-    var ctx = c.getContext("2d")
-    // 画之前, 清除上一个画布
-    ctx.clearRect(0, 0, 300, 250)
-    let start = [20, 40]
-    for (let i = 0; i < notes.length; i++) {
-        // 注意, 每个 note 的 drawStart[0], += 45
-        let start_x = start[0] + 55*i
-        let drawStart = [
-            start_x,
-            start[1],
-        ]
-        let note = notes[i]
-        drawOneQuiz(ctx, note, drawStart)
-    }
+    // let c = find('.canvas-for-show')
+    // var ctx = c.getContext("2d")
+    // // 画之前, 清除上一个画布
+    // ctx.clearRect(0, 0, 300, 250)
+
+    // let start = [20, 40]
+    // for (let i = 0; i < notes.length; i++) {
+    //     // 注意, 每个 note 的 drawStart[0], += 45
+    //     let start_x = start[0] + 55*i
+    //     let drawStart = [
+    //         start_x,
+    //         start[1],
+    //     ]
+    //     let note = notes[i]
+    //     drawOneQuiz(ctx, note, drawStart)
+    // }
+    const { Factory } = Vex.Flow;
+
+    const factory = new Factory({
+    renderer: { elementId: 'staveCanvas', width: 500, height: 200 },
+    });
+
+    const score = factory.EasyScore();
+    const system = factory.System();
+
+    const a = notes.join(", ")
+
+    debugger
+    system
+    .addStave({
+        voices: [
+            score.voice(score.notes(a, { stem: 'up' })),
+        ],
+    })
+    .addClef('treble')
+    .addTimeSignature('4/4');
+
+    factory.draw();
 }
 
 const drawOneQuiz = (ctx, note, drawStart) => {
@@ -350,19 +375,19 @@ const drawLine = (start, end, ctx, i) => {
 
 const genRandomNotes = () => {
     let notesList = [
-        'CPP', 'BP', 'AP', 'GP', 'FP', 'EP', 'DP',
-        'CP', 'B', 'A', 'G', 'F', 'E', 'D', 'C',
-        'BM', 'AM'
+        'B', 'A', 'G', 'F', 'E', 'D', 'C'
     ]
     let result = []
     let i = 0
-    while (i < 1) {
+    while (i < 8) {
         // log('while')
         let num = notesList.length + 3
         let index = Math.ceil(Math.random() * num)
         // log('index', index)
+
+        const tmp =  Math.pow(2,Math.round(Math.random()*4 + 1))
         if (index < notesList.length) {
-            let note = notesList[index]
+            let note = notesList[index]+"4/" + tmp
             result.push(note)
             i++
         } else {
