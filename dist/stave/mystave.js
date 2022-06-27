@@ -98,4 +98,22 @@
 
         }
     }
+var parentNode = document.querySelector('.div-answer-selector')
+var slibNodes = parentNode.children;
+for(let i=0;i<slibNodes.length;i++){
+    let one = slibNodes[i];
+    one.onclick=function(){
+      let zimu = this.innerText;
+      if(keyDownCount<4){
+        yourAnswer[keyDownCount] = (zimu);
+        playAnswer(['','','',''], yourAnswer);
+      }
+      keyDownCount++
+      //-----
+      if(keyDownCount>=4){
+          //---答题结束，显示答案
+          playAnswer(rightAnswer, yourAnswer);
+      }
+    }
+}
       

@@ -18,10 +18,10 @@
   <!-- This example is available at: https://jsfiddle.net/smyht3q5/ -->
   <body>
 
-    <h2 style="margin: 10px 0;">按键盘的字母“CDEFGAB"与音符对应。按数字0，刷新题目。</h2>
+    <h2 class="div-center">按键盘的字母“CDEFGAB"与音符对应。按数字0，刷新题目。</h2>
     <canvas id="output"></canvas>
 
-    <table class="div-answer-selector">
+    <table class="div-center">
       <tr>
         <td class="td-title">正确答案:</td><td>D</td><td>D</td><td>D</td><td>D</td>
       </tr>
@@ -29,9 +29,19 @@
         <td>您的答案:</td><td>D</td><td>D</td><td>D</td><td>D</td>
       </tr>
     </table>
-    <div class="div-answer-selector" style="padding-top: 20px;">
+    <div class="div-center" style="padding-top: 20px;">
       <div><h2 id="yourScore"></h2></div>
   </div>
+
+  <div class="div-answer-selector">
+    <div class="div-answer-cell" data-answer="C">C</div>
+    <div class="div-answer-cell" data-answer="D">D</div>
+    <div class="div-answer-cell" data-answer="E">E</div>
+    <div class="div-answer-cell" data-answer="F">F</div>
+    <div class="div-answer-cell" data-answer="G">G</div>
+    <div class="div-answer-cell" data-answer="A">A</div>
+    <div class="div-answer-cell" data-answer="B">B</div>
+</div>
     <script src="./vexflow.js"></script>
     <script type="module" src="mystave.js"> </script>
     
